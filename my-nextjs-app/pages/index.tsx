@@ -1,28 +1,29 @@
 import styles from "../styles/Home.module.scss";
+import Link from "next/link";
 
-const BLOG_URL = "http://localhost:2368";
-const CONTENT_API_KEY = "23b631a5a5ced67f7244b6d1b9";
+const {CONTENT_API_KEY,BLOG_URL} = process.env;
 
 type Post = {
-  title : string
+  title: string;  
+  slug: string;
 };
 
-const getPost = async () => {
-  // https://demo.ghost.io/ghost/api/v3/content/posts/?key=22444f78447824223cefc48062&include=tags,authors
-
+const getPosts = async () => {
   const res = await fetch(
-    `${BLOG_URL}/ghost/api/v3/content/posts/?key=${CONTENT_API_KEY}`
+    `${BLOG_URL}/ghost/api/v3/content/posts/?key=${CONTENT_API_KEY}&fields=title,slug,custom_excerpt`
   );
-  let postData = await res.json();
+  const postData = await res.json();
+
   // const titles = postData.posts.map((i) => i.title);
-  // console.log(titles);
+  // console.log(postData);
   return postData.posts;
 };
 
 export const getStaticProps = async ({ params }) => {
-  const posts = await getPost();
+  const posts = await getPosts();
   return {
     props: { posts },
+    revalidate: 10
   };
 };
 
@@ -33,8 +34,14 @@ const Home: React.FC<{ posts: Post[] }> = (props) => {
     <div className={styles.container}>
       <h1>my post</h1>
       <ul>
-        {posts.map((post,i) => {
-          return <li key={i}>{post.title}</li>;
+        {posts.map((post) => {
+          return (
+            <li key={post.slug}>
+              <Link href="/post/[slug]" as={`/post/${post.slug}`}>
+                <a>{post.title}</a>
+              </Link>
+            </li>
+          );
         })}
       </ul>
     </div>
