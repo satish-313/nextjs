@@ -1,7 +1,8 @@
 import "./globals.css";
-import { Roboto } from "next/font/google";
+import Headers from "@/components/Headers";
+import { Poppins } from "next/font/google";
 
-const roboto = Roboto({
+const roboto = Poppins({
     weight: ["400", "700"],
     subsets: ["latin"],
 });
@@ -20,6 +21,7 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className={roboto.className}>
+                <Headers />
                 <main className="max-w-5xl mx-auto w-11/12">{children}</main>
             </body>
         </html>
