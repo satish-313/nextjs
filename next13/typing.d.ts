@@ -29,8 +29,24 @@ type gitRepos = {
     html_url: string;
     description: string | null;
     fork: boolean;
-    url:string;
+    url: string;
     stargazers_count: number;
     forks_count: number;
     watchers_count: number;
+};
+
+type repoContent = {
+    name: string;
+    path: string;
+    sha: string;
+    size: number;
+    html_url: string;
+    git_url: string;
+    download_url: null | string;
+    type: string;
+    _links: {
+        self: string;
+        git: string;
+        html: string;
+    };
 };

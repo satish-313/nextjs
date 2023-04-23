@@ -14,6 +14,9 @@ function HomePage() {
                 <li>
                     <Link href="/about/team">team</Link>
                 </li>
+                <li>
+                    <Link href="/code/repos">code</Link>
+                </li>
             </ul>
         </div>
     );
