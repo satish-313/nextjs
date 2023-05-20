@@ -50,3 +50,11 @@ type repoContent = {
         html: string;
     };
 };
+
+type course = {
+    id: number;
+    title: string;
+    description: string;
+    link: string;
+    level: string;
+};
